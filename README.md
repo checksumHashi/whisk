@@ -1,2 +1,3 @@
-## Whisk ![whisk-svgrepo-com(1)](https://github.com/crackMaker/whisk/assets/66681971/f0bb5a9a-8267-4307-8158-f8ee04d9597e)
+## Whisk ![whisk-svgrepo-com(3)](https://github.com/crackMaker/whisk/assets/66681971/0e186140-e362-4cde-8bba-48a49cdea94a)
+
 Simple automated script to check for malware and rootkits on an ubuntu machine
