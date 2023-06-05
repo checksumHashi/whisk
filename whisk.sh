@@ -10,11 +10,11 @@ run_all_software(){
         for x in clam rkhunter chkrootkit; do
             fancy_text 1 > $x.log
         done
-        sudo clamscan -r | tee clam.log
-        sudo sudo rkhunter --checkall | tee rkhunter.log
-        sudo chkrootkit | tee chkrootkit.log
+        sudo clamscan -r | tee -a clam.log
+        sudo sudo rkhunter --checkall | tee -a rkhunter.log
+        sudo chkrootkit | tee -a chkrootkit.log
         for x in clam rkhunter chkrootkit; do
-            fancy_text 0 > $x.log
+            fancy_text 0 >> $x.log
         done
         exit
 
@@ -34,11 +34,11 @@ run_all_software(){
         for x in clam rkhunter chkrootkit; do
             fancy_text 1 > $x.log
         done
-        sudo clamscan -r > clam.log &
+        sudo clamscan -r >> clam.log &
         sudo sudo rkhunter --checkall > rkhunter.log &
-        sudo chkrootkit > chkrootkit.log &
+        sudo chkrootkit >> chkrootkit.log &
         for x in clam rkhunter chkrootkit; do
-            fancy_text 0 > $x.log
+            fancy_text 0 >> $x.log
         done
         exit
     fi
