@@ -8,7 +8,7 @@ run_all_software(){
 
     if [[ $choice2 == "Run and output to a log file" ]]; then
         for x in clam rkhunter chkrootkit; do
-            fancy_text 1 > $x.log
+            fancy_text 1 >> $x.log
         done
         sudo clamscan -r | tee -a clam.log
         sudo sudo rkhunter --checkall | tee -a rkhunter.log
@@ -32,10 +32,10 @@ run_all_software(){
 
     elif [[ $choice2 == "Run in background and output to file" ]]; then
         for x in clam rkhunter chkrootkit; do
-            fancy_text 1 > $x.log
+            fancy_text 1 >> $x.log
         done
         sudo clamscan -r >> clam.log &
-        sudo sudo rkhunter --checkall > rkhunter.log &
+        sudo sudo rkhunter --checkall >> rkhunter.log &
         sudo chkrootkit >> chkrootkit.log &
         for x in clam rkhunter chkrootkit; do
             fancy_text 0 >> $x.log
@@ -53,7 +53,7 @@ run_clamav(){
     elif [[ $choice2 == "Run in background" ]]; then
         sudo clamscan -r &
     elif [[ $choice2 == "Run in background and output to file" ]]; then
-        sudo clamscan -r > clam.log &
+        sudo clamscan -r >> clam.log &
     fi
 }
 
