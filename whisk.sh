@@ -10,7 +10,7 @@ run_all_software(){
 
     ## based on the choice made, do
     if [[ $choice2 == "Run and output to a log file" ]]; then
-        ## run all software, output all to logs
+        ## Run scanners, output all to logs
         for x in clam rkhunter chkrootkit; do
             fancy_text 1 >> $x.log
         done
@@ -23,21 +23,21 @@ run_all_software(){
         exit
 
     elif [[ $choice2 == "Just run" ]]; then
-        ## run all software in current env
+        ## Run scanners in current env
         sudo clamscan -r
         sudo sudo rkhunter --checkall
         sudo chkrootkit
         exit
 
     elif [[ $choice2 == "Run in background" ]]; then
-        #run all software in the background
+        #Run scanners in the background
         sudo clamscan -r &
         sudo sudo rkhunter --checkall &
         sudo chkrootkit &
         exit
 
     elif [[ $choice2 == "Run in background and output to file" ]]; then
-        ## run all software in the background, and write their outputs to respective logs
+        ## Run scanners in the background, and write their outputs to respective logs
         for x in clam rkhunter chkrootkit; do
             fancy_text 1 >> $x.log
         done
@@ -64,15 +64,6 @@ run_clamav(){
     fi
 }
 
-run_rkhunter(){
-    sudo sudo rkhunter --checkall
-}
-
-run_chkrootkit(){
-    #sudo chkrootkit "$howto"
-    echo "."
-}
-
 fancy_text(){
     if [[ $1 == 1 ]]; then
         echo "$(gum style --border normal --margin "1" --padding "1 2" --border-foreground 130 "$(gum style --foreground 130 'BEGIN')")"
@@ -82,25 +73,19 @@ fancy_text(){
 }
 
 echo "Choose which software you would like to run"
-choice=$(gum choose "Run all software" "Run chkrootkit" "Run clamav" "Run rkhunter" "Exit")
+choice=$(gum choose "Run scanners"  "Exit")
 
 if [[ $choice == "Exit" ]]; then
     exit
 fi
 
-echo "Choose whether you would like to scan from root or a custom location? (Used for clamav)"
+echo "Choose whether you would like to scan from root or a custom location?"
 pos=$(gum choose "Root ( / )" "Custom Location")
 
 echo "How would you like the scan to run?"
 echo "quick tip, when reading the log file, use cat log | grep -i warning"
 choice2=$(gum choose "Run and output to a log file" "Just run" "Run in background" "Run in background and output to file")
 
-if [[ $choice == "Run all software" ]]; then
+if [[ $choice == "Run scanners" ]]; then
     run_all_software "$pos" 
-elif [[ $choice == "Run chkrootkit" ]]; then
-    run_chkrootkit "$pos"
-elif [[ $choice == "Run clamav" ]]; then
-    run_clamav "$pos" 
-elif [[ $choice == "Run RKHunter" ]]; then
-    run_rkhunter "$pos"
 fi

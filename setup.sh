@@ -20,27 +20,6 @@ install_all_software(){
     sudo apt install chkrootkit -y
 }
 
-install_chkrootkit(){
-    # installs CHKRootkit
-    sudo apt install chkrootkit -y
-}
-
-install_RKhunter(){    
-    # installs and updates RKhunter
-    sudo apt install rkhunter
-    sudo rkhunter --propupd
-}
-
-install_clamav(){
-    # installs and updates clam
-    # https://help.ubuntu.com/community/ClamAV 
-    sudo apt install clamav clamav-daemon
-    sudo systemctl stop clamav-freshclam
-    sudo freshclam
-    sudo systemctl start clamav-freshclean
-    sudo systemctl enable clamav-freshclean
-}
-
 choice=$(gum choose "Install all software" "Install chkrootkit" "Install clamav" "Install RKHunter" "Exit")
 
 if [[ $choice == "Install all software" ]]; then
