@@ -5,10 +5,12 @@ gum style --border normal --margin "1" --padding "1 2" --border-foreground 130 "
 echo "Welcome to whisk, where we whisk the malware away!"
 
 run_commands(){
-
+    echo b
 }
 
-install_all_software(){\
+install_all_software(){
+    echo "INSTALLING CLAMAV, RKHUNTER AND CHKROOTKIT"
+
     sudo apt update
 
     # installs and updates clam
@@ -30,29 +32,9 @@ install_all_software(){\
     exit
 }
 
-function run_antivirus_scans {
-    # Run ClamAV scan with default options
-    clamscan -r / >> whisk.log
-
-    # Run Chkrootkit scan with default options
-    chkrootkit >> whisk.log
-
-    # Run Rkhunter scan with default options
-    rkhunter --checkall --skip-keypress >> whisk.log
-
-    # Run AIDE scan with default options
-    aide.wrapper --check >> whisk.log
-    
-  	#Run LMD (Linux Malware Detect) Scan 
- 	lmd -u -q  && lmd_report="$(lmd report)" && echo "${lmd_report}" | tee -a whisk.log 
-
-  	#Run OSSEC HIDS Scanning 
-	ossec-control start && ossec-logtest > /dev/null && ossec-analysisd	
-}
-
-run(){
-    ## remove previous logs
-    rm logs/clam.log logs/rkhunter.log logs/chkrootkit.log
+run_all_software(){
+    ## remove previous log
+    rm whisk.log
 
     ## based on the choice made, do
     if [[ $choice2 == "Run and output to a log file" ]]; then
@@ -98,7 +80,7 @@ fancy_text(){
 echo "Main menu"
 choice=$(gum choose "Run scanners" "Install software" "Exit")
 
-if [[ $choice == "Install software" ]]then
+if [[ $choice == "Install software" ]]; then
     install_all_software
 elif [[ $choice == "Exit" ]]; then
     exit
