@@ -9,7 +9,7 @@ run_commands(){
 }
 
 install_all_software(){
-    echo "INSTALLING CLAMAV, RKHUNTER AND CHKROOTKIT"
+    echo -e "\nINSTALLING CLAMAV\n"
 
     sudo apt update
 
@@ -21,10 +21,12 @@ install_all_software(){
     sudo systemctl start clamav-freshclean
     sudo systemctl enable clamav-freshclean
 
+    echo -e "\nINSTALLING RKHUNTER\n"
     # installs and updates RKhunter
     sudo apt install rkhunter -y
     sudo rkhunter --propupd
 
+    echo -e "\nINSTALLING CHKROOTKIT\n"
     # installs CHKRootkit
     sudo apt install chkrootkit -y
 
@@ -34,16 +36,30 @@ install_all_software(){
 
 run_all_software(){
     ## remove previous log
-    rm whisk.log
+    #rm whisk.log
 
     ## based on the choice made, do
     if [[ $choice2 == "Run and output to a log file" ]]; then
-        sudo clamscan -r | tee -a logs/clam.log
-        sudo sudo rkhunter --checkall | tee -a logs/rkhunter.log
-        sudo chkrootkit | tee -a logs/chkrootkit.log
+
         for x in clam rkhunter chkrootkit; do
+
+            fancy_text 1 >> whisk.log
+            echo -e "\n Starting ClamAV \n"
+            sudo clamscan -r | tee -a whisk.log
             fancy_text 0 >> whisk.log
+
+            fancy_text 1 >> whisk.log
+            echo -e "\n Starting RKHunter \n"
+            sudo sudo rkhunter --checkall | tee -a whisk.log
+            fancy_text 0 >> whisk.log
+            
+            fancy_text 1 >> whisk.log
+            echo -e "\n Starting CHKRootkit \n"
+            sudo chkrootkit | tee -a whisk.log
+            fancy_text 0 >> whisk.log
+
         done
+        echo -e "\nExiting whisk!\n"
         exit
 
     elif [[ $choice2 == "Just run" ]]; then
