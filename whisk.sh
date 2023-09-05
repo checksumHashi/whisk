@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo "Whisk requires root privilages"
 sudo echo "."
-gum style --border normal --margin "1" --padding "1 2" --border-foreground 130 "Welcome to $(gum style --foreground 130 'Whisk v0.1'), where we $(gum style --foreground 130 'Whisk') the malware away!"
+gum style --border normal --margin "1" --padding "1 2" "Welcome to $(gum style --foreground 130 'Whisk v0.1'), where we $(gum style --foreground 130 'Whisk') the malware away!"
 echo "Welcome to whisk, where we whisk the malware away!"
 
 run_commands(){
