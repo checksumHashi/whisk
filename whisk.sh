@@ -2,7 +2,6 @@
 echo "Whisk requires root privilages"
 sudo echo "."
 gum style --border normal --margin "1" --padding "1 2" --border-foreground 130 "Welcome to $(gum style --foreground 130 'Whisk v0.1'), where we $(gum style --foreground 130 'Whisk') the malware away!"
-echo "Welcome to whisk, where we whisk the malware away!"
 run_commands(){
     echo b
 }
@@ -40,24 +39,20 @@ run_all_software(){
     ## based on the choice made, do
     if [[ $choice2 == "Run and output to a log file" ]]; then
 
-        for x in clam rkhunter chkrootkit; do
+        fancy_text 1 >> whisk.log
+        echo -e "\n Starting ClamAV \n"
+        sudo clamscan -r | tee -a whisk.log
+        fancy_text 0 >> whisk.log
 
-            fancy_text 1 >> whisk.log
-            echo -e "\n Starting ClamAV \n"
-            sudo clamscan -r | tee -a whisk.log
-            fancy_text 0 >> whisk.log
-
-            fancy_text 1 >> whisk.log
-            echo -e "\n Starting RKHunter \n"
-            sudo sudo rkhunter --checkall | tee -a whisk.log
-            fancy_text 0 >> whisk.log
-            
-            fancy_text 1 >> whisk.log
-            echo -e "\n Starting CHKRootkit \n"
-            sudo chkrootkit | tee -a whisk.log
-            fancy_text 0 >> whisk.log
-
-        done
+        fancy_text 1 >> whisk.log
+        echo -e "\n Starting RKHunter \n"
+        sudo sudo rkhunter --checkall | tee -a whisk.log
+        fancy_text 0 >> whisk.log
+        
+        fancy_text 1 >> whisk.log
+        echo -e "\n Starting CHKRootkit \n"
+        sudo chkrootkit | tee -a whisk.log
+        fancy_text 0 >> whisk.log
         echo -e "\nExiting whisk!\n"
         exit
 
