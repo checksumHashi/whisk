@@ -28,8 +28,7 @@ install_all_software(){
     # installs CHKRootkit
     sudo apt install chkrootkit -y
 
-    echo "ALL SOFTWARE INSTALLED, PLEASE RUN WHISK AGAIN TO SCAN"
-    exit
+    echo "ALL SOFTWARE INSTALLED"
 }
 
 run_all_software(){
