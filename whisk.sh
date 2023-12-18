@@ -68,6 +68,10 @@ run_all_software(){
         sudo chkrootkit >> whisk.log &
     fi
 
+    FILE=whisk.log
+    if [[ -f "$FILE" ]]; then
+        cat $FILE | grep -i "warning" >> warnings_whisk.log
+    fi
     
 }
 
