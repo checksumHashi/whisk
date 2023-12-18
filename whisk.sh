@@ -54,28 +54,25 @@ run_all_software(){
         sudo chkrootkit | tee -a whisk.log
         fancy_text 0 >> whisk.log
         echo -e "\nExiting whisk!\n"
-        exit
 
     elif [[ $choice2 == "Just run" ]]; then
         ## Run scanners in current env
         sudo clamscan -r
         sudo sudo rkhunter --checkall
         sudo chkrootkit
-        exit
 
     elif [[ $choice2 == "Run in background" ]]; then
         #Run scanners in the background
         sudo clamscan -r &
         sudo sudo rkhunter --checkall &
         sudo chkrootkit &
-        exit
 
     elif [[ $choice2 == "Run in background and output to file" ]]; then
         sudo clamscan -r >> whisk.log &
         sudo sudo rkhunter --checkall >> whisk.log &
         sudo chkrootkit >> whisk.log &
-        exit
     fi
+
     
 }
 
@@ -87,22 +84,25 @@ fancy_text(){
     fi
 }
 
-echo "Main menu"
-choice=$(gum choose "Run scanners" "Install software" "Exit")
+while true
+do
+    echo "Main menu"
+    choice=$(gum choose "Run scanners" "Install software" "Exit")
 
-if [[ $choice == "Install software" ]]; then
-    install_all_software
-elif [[ $choice == "Exit" ]]; then
-    exit
-fi
+    if [[ $choice == "Install software" ]]; then
+        install_all_software
 
-echo "Choose whether you would like to scan from root or a custom location?"
-pos=$(gum choose "Root ( / )" "Custom Location")
+    elif [[ $choice == "Run scanners" ]]; then
+        echo "Choose whether you would like to scan from root or a custom location?"
+        pos=$(gum choose "Root ( / )" "Custom Location")
 
-echo "How would you like the scan to run?"
-echo "quick tip, when reading the log file, use cat log | grep -i warning"
-choice2=$(gum choose "Run and output to a log file" "Just run" "Run in background" "Run in background and output to file")
+        echo "How would you like the scan to run?"
+        echo "quick tip, when reading the log file, use cat log | grep -i warning"
+        choice2=$(gum choose "Run and output to a log file" "Just run" "Run in background" "Run in background and output to file")
 
-if [[ $choice == "Run scanners" ]]; then
-    run_all_software "$pos" 
-fi
+        run_all_software "$pos" 
+
+    elif [[ $choice == "Exit" ]]; then
+        exit
+    fi
+done
