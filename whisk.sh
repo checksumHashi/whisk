@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 echo "Whisk requires root privilages"
 sudo echo "."
-gum style --border normal --margin "1" --padding "1 2" --border-foreground 130 "Welcome to $(gum style --foreground 130 'Whisk v0.1'), where we $(gum style --foreground 130 'Whisk') the malware away!"
-run_commands(){
-    echo b
-}
 
 install_all_software(){
     echo -e "\nINSTALLING CLAMAV\n"
@@ -85,6 +81,7 @@ fancy_text(){
 
 while true
 do
+    gum style --border normal --margin "1" --padding "1 2" --border-foreground 130 "Welcome to $(gum style --foreground 130 'Whisk v0.1'), where we $(gum style --foreground 130 'Whisk') the malware away!"
     echo "Main menu"
     choice=$(gum choose "Run scanners" "Install software" "Exit")
 
